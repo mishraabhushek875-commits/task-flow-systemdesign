@@ -1,0 +1,19 @@
+services:
+  # Tumhara Node.js backend
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    environment:
+      # Container ke andar Redis ka naam "redis" hoga (neeche service name se), localhost nahi
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+ 
+  # Redis — ab isko manually docker run se chalane ki zarurat nahi, compose khud chala dega
+  redis:
+    image: redis:alpine
+    ports:
+      - "6380:6379"

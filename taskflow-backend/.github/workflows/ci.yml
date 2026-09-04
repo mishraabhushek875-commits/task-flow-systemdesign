@@ -1,0 +1,35 @@
+name: TaskFlow CI
+
+# Ye workflow tab chalega jab bhi 'main' branch pe code push ho, ya us pe PR bane
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Repo ka code checkout karo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Node.js setup karo (wahi version jo Dockerfile mein hai)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      # Dependencies install karo
+      - name: Install dependencies
+        run: npm install
+
+      # Syntax/build check — agar koi import galat hai ya module missing hai, yahin pakड़ा jayega
+      - name: Verify app can start (syntax check)
+        run: node --check src/server.js
+
+      - name: Build Docker image (sanity check)
+        run: docker build -t taskflow-backend-ci .
