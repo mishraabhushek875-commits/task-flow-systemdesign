@@ -2,18 +2,31 @@ services:
   # Tumhara Node.js backend
   app:
     build: .
-    ports:
-      - "5000:5000"
+    # 'ports' hata diya — jab multiple instances (--scale) chalengi, sab ek hi
+    # host-port pe bind nahi ho sakti. Ab sirf Nginx se hi bahar access hoga.
     env_file:
       - .env
     environment:
       # Container ke andar Redis ka naam "redis" hoga (neeche service name se), localhost nahi
       - REDIS_URL=redis://redis:6379
+      # .env mein PORT=5002 ho sakta hai (local ke liye) — container ke andar
+      # hamesha 5000 use karo, taaki Nginx config se match ho
+      - PORT=5000
     depends_on:
       - redis
- 
+
   # Redis — ab isko manually docker run se chalane ki zarurat nahi, compose khud chala dega
   redis:
     image: redis:alpine
     ports:
       - "6380:6379"
+
+  # Nginx — load balancer, saare 'app' instances ke aage khada hoga
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app

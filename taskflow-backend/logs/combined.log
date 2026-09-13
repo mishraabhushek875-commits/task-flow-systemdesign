@@ -1,0 +1,4 @@
+{"level":"info","message":"Server running on http://localhost:5002","timestamp":"2026-09-05T12:31:30.644Z"}
+{"level":"info","message":"Server running on http://localhost:5002","timestamp":"2026-09-05T12:33:15.036Z"}
+{"level":"info","message":"::1 - - [05/Sep/2026:12:34:47 +0000] \"GET /api/health HTTP/1.1\" 200 51 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36\"","timestamp":"2026-09-05T12:34:47.575Z"}
+{"level":"info","message":"::1 - - [05/Sep/2026:12:34:47 +0000] \"GET /favicon.ico HTTP/1.1\" 404 150 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36\"","timestamp":"2026-09-05T12:34:47.690Z"}
